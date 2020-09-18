@@ -1,7 +1,7 @@
 //Function de firestorage
 export const uploadImgPost = (file, uid) => {
-    const refStorage = firebase.storage().ref(`imgsPosts/${uid}/${file.name}`)
-    const files = refStorage.put(file)
+    const refStorage = firebase.storage().ref();
+    const files = refStorage.child(`publications/ + ${uid}/${file.name}`).put(file); 
 
     files.on('state_changed', snapshot => {
         const porcentaje = snapshot.bytesTransferred / snapshot.totalBytes * 100
@@ -15,7 +15,7 @@ export const uploadImgPost = (file, uid) => {
     () => {
         files.snapshot.ref.getDownloadURL()
         .then(url => {
-            localStorage.setItem('imgNewPost', url)
+            localStorage.setItem('Publications', url)
         })
         .catch(err => {
             console.log('err')

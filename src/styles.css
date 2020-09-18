@@ -227,12 +227,16 @@ section#info {
 }
 
 h1#tituloI {
-    font-size: 170%;
+    font-family: 'Courgette', cursive;
+    font-size: 190%;
+    margin: 2%;
+    text-align: center;
 }
 
 p#texto-inicio {
     font-size: 120%;
     text-align: justify;
+    line-height: 170%;
 }
 
 img#inicio {
@@ -328,13 +332,13 @@ img#fotoP {
 }
 
 h1#titleP {
-    font-family: ;
+    font-family: 'Courgette', cursive;
     font-size: 30px;
 }
 
 p#descriptionP {
-    font-family: ;
-    font-size: 20px;
+    margin: auto;
+    font-size: 18px;
     text-align: justify;
 }
 
@@ -383,7 +387,7 @@ i#btn-like {
     background: #29788add;
     width: 16%;
     margin-top: 1%;
-    margin-left: 2%;
+    margin-left: 14%;
     margin-right: 2%;
     padding: 1%;
     border-radius: 6px;
@@ -402,32 +406,14 @@ i#btn-like {
     font-weight: bold;
 }
 
-
-/* -----  Sin modificar hacia abajo  -----*/
-
-
-
-/* #principal {
+p#toDate {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: 3%;
-    align-items: center;
-    align-content: center;
+    justify-content: end;
+    align-items: flex-end;
+    align-content: flex-end;
+    font-weight: normal;
+    margin-top: 5%;
 }
 
-img {
-    max-width: 100%;
-}
 
-.cardPost {
-    margin: 2%;
-    background-color: transparent;
-}
-
-i#btn-like {
-    position: sticky;
-    color: tomato;
-    font-size: 35px;
-    left: 50px;
-} */
+/* -----  Sin modificar hacia abajo  -----*

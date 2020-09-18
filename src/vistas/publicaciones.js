@@ -29,7 +29,7 @@ const publications = () => {
             <input type="text" id="title-post" class="form-control" placeholder="Lugar recomendado..." autocomplete="off" autofocus>
             <textarea id="description" class="form-control" placeholder="Escribe aquí..." autocomplete="off"></textarea>
             <br>
-            <input type="file" accept=".png, .jpg, .jpeg" name="subirArchivo" id="file"><br>
+            <input type="file" name="subirArchivo" id="file"><br>
             <div id="load-bar" class="load-bar">
                 <span id="progress" class="progress"></span>
             </div>
