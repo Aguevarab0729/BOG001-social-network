@@ -1,150 +1,63 @@
 import showFirst from './vistas/inicio.js'
 import showLogin from './vistas/registro.js'
 import publications from './vistas/publicaciones.js'
+import { registry, observer, closeSession, userProfile } from './firebase/firebaseAuth.js'
+import { createPost } from './firebase/firestore.js'
+import profile from './vistas/perfil.js'
 
 window.addEventListener('hashchange', () => {
-    router(window.location.hash)
-
+    router(window.location.hash);
 });
 
-
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
     router('#/')
-    document.querySelector(".modal").style.visibility ="hidden";
-
+    document.querySelector("#contenedor-registro").style.visibility ="hidden";
 });
 
 let content = document.getElementById("container"); 
 
-const router = (route) => {
+export const router = (route) => {
     content.innerHTML = '';
     switch(route) {
-        case '#/': 
+        case '#/':
+            closeSession();
             showLogin();
             registry();
             modalInicio();
             observer();
         break;
-        case '#/Home': {
+        
+        case '#/Home': 
             showFirst();
-            closeSession();
         break;
-        }
-        case '#/publicaciones': 
+        
+        case '#/Publicaciones': 
             publications();
-        break;   
-        case '#/perfil':
+            createPost();
+        break;
+        case '#/Perfil':
+            profile();
+            userProfile();
             return console.log('Perfil');
+        break;
+
         default:
             return console.log('No encontrado');
     }
 }
 
-const registry= () => {
-// Firebase de registro 
-
-const registro= document.querySelector('#registro');
-registro.addEventListener ('submit', (e) =>{
-    e.preventDefault();
-    const email = document.querySelector('#input-correo').value;
-    const pws1= document.querySelector('#input-psw1').value;
-    const pws2= document.querySelector('#input-psw2').value;
-    const message= document.querySelector('#errorMessage');
-    firebase.auth().createUserWithEmailAndPassword(email, pws1)
-    .then (()=> {
-        verify();
-    })
-    .catch(function(error){
-    let errorCode = error.code;
-    let errorMessage = error.message;
-    message.innerHTML=(errorMessage);
-    })
-});
-
-// Firebase de inicio de sesion
-
-const signInForm= document.querySelector('#Login');
-signInForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const loginEmail = document.querySelector('#login-email').value;
-    const loginPws= document.querySelector('#login-psw').value;
-    const messageSing= document.querySelector('.messageSing');
-    console.log(loginEmail,loginPws);
-    auth
-    .signInWithEmailAndPassword(loginEmail, loginPws)
-    .then (( ) => {
-        router('#/Home');
-    })
-    .catch(function(error){
-    let errorCode = error.code;
-    let errorMessageSing = error.message;
-    messageSing.innerHTML=(errorMessageSing);
-    })
-});
-}
-
-const observer = () => {
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-    console.log('existe usuario');
-      // User is signed in.
-    console.log(user.emailVerified);
-    
-        let displayName = user.displayName;
-        let email = user.email;
-        let emailVerified = user.emailVerified;
-        let photoURL = user.photoURL;
-        let isAnonymous = user.isAnonymous;
-        let uid = user.uid;
-        let providerData = user.providerData;
-      // ...
-    } else {
-      // User is signed out.
-        console.log('vuelva a iniciar sesión');
-    }
-});
-}
-observer();
-
 const modalInicio = () => {
-
-let modal = document.querySelector(".modal");
-let btn = document.getElementById("btninicio-sesion");
-let span = document.getElementsByClassName("close")[0];
-
-
-btn.onclick =  () => {
-    modal.style.visibility= "visible";
-    registro.style.visibility= "hidden";
-}
-
-span.onclick =  () => {
-    modal.style.visibility = "hidden";
-    registro.style.visibility= "visible";
-}
-
-}
-
-const closeSession = () => {
-    firebase.auth().signOut()
-    .then(function(){
-        console.log('cerrando sesion');
-    }) 
-    .catch(function(error){
-        console.log(error);
-    })
-}
+    let modal = document.querySelector("#contenedor-registro");
+    let btn = document.getElementById("registry");
+    let span = document.getElementsByClassName("startSession")[0];
+    let inicio = document.querySelector('.inicioSession');
     
-const verify = () => {
-let user = firebase.auth().currentUser;
-user.sendEmailVerification().then(function() {
-    console.log('enviando correo...');
-  // Email sent.
-}).catch(function(error) {
-  // An error happened.
-    console.log(error);
-});
-} 
-/*travel experiences
-live traveling
-time to travel*/
+    btn.onclick =  () => {
+        modal.style.visibility= "visible";
+        inicio.style.visibility= "hidden";
+    }
+    span.onclick =  () => {
+        modal.style.visibility = "hidden";
+        inicio.style.visibility= "visible";
+    }
+}
