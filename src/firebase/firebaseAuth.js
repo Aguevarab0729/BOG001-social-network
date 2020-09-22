@@ -32,13 +32,13 @@ export const registry= () => {
         firebase.auth().signInWithEmailAndPassword(loginEmail, loginPws)
         .then ((result) => {
             let emailVerified = result.user.emailVerified;
-            //const user = JSON.parse(result.user);
+            
             let user = result.user;
-            if(emailVerified){
+            if(emailVerified && user.uid){
                 localStorage.setItem('activeUserName', user.displayName);
                 localStorage.setItem('activeUserEmail', user.email);
                 localStorage.setItem('activeUserPhoto', user.photoURL);
-                console.log(result.user);
+                //console.log(result.user);
                 router('#/Home');
             }
             else{
@@ -61,7 +61,8 @@ export const registry= () => {
             
             let emailVerified = result.user.emailVerified;
             let user = result.user;
-            if(emailVerified){
+            
+            if(emailVerified && user.uid){
                 localStorage.setItem('activeUserName', user.displayName);
                 localStorage.setItem('activeUserEmail', user.emailVerified);
                 localStorage.setItem('activeUserPhoto', user.photoURL);
@@ -96,9 +97,11 @@ export const userProfile = () => {
         contentProfile.innerHTML = '';
         user.providerData.forEach(function (profile) {
             contentProfile.innerHTML += 
-            `<p>Name: ${profile.displayName}</p>
-            <p>Email: ${profile.email}</p>
-            <img src= "${profile.photoURL}" style="max-width: 100%;">`
+            `<div id="containerProfile">
+            <img src= "${profile.photoURL}" id="pProfile" style="max-width: 100%;">
+            <p class="nameP">Name: ${profile.displayName}</p>
+            <p class="emailP">Email: ${profile.email}</p>
+            <div>`
         });
     }
 } 
